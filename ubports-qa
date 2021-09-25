@@ -82,12 +82,12 @@ def apt_update():
 
 
 def apt_upgrade():
-    LOG.debug("Running 'apt upgrade'.")
+    LOG.debug("Running 'apt full-upgrade'.")
     try:
-        subprocess.run(["apt", "upgrade"], check=True)
+        subprocess.run(["apt", "full-upgrade"], check=True)
         subprocess.run(["apt", "autoremove"], check=True)
     except subprocess.CalledProcessError:
-        LOG.error("Failed to run 'apt upgrade'. See the output above for details.")
+        LOG.error("Failed to run 'apt full-upgrade'. See the output above for details.")
 
 
 def get_list_file(branch):
