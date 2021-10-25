@@ -51,6 +51,8 @@ class WritableRootFS:
         ensure_root()
         subprocess.run(["mount", "-o", "rw,remount", "/"])
         LOG.debug("Making sure we have enough free space for archives.")
+        # Make sure this directory exists. Sometimes it doesn't on a freshly-flashed system.
+        os.makedirs("/var/cache/apt/archives", exist_ok=True)
         subprocess.run(["mount", "-t", "tmpfs", "tmpfs", "/var/cache/apt/archives"])
 
     @classmethod
