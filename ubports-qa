@@ -91,6 +91,13 @@ def apt_upgrade():
     except subprocess.CalledProcessError:
         LOG.error("Failed to run 'apt full-upgrade'. See the output above for details.")
 
+def apt_install(repository_name):
+    LOG.debug("upgrading package")
+    try:
+        subprocess.run(["pkginstall", repository_name], check=True)
+    except subprocess.CalledProcessError:
+        LOG.error("Failed to install Package")
+    
 
 def get_list_file(branch):
     list_file = "/etc/apt/sources.list.d/ubports-{}.list".format(branch)
@@ -220,7 +227,7 @@ def install_command(args):
         add_list(repository_name)
         add_pref(repository_name)
         apt_update()
-        apt_upgrade()
+        apt_install(repository_name)
 
     LOG.info(
         "You can remove this repository by running 'sudo ubports-qa remove {}'".format(
