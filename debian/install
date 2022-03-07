@@ -1,3 +1,6 @@
 ubports-qa /usr/bin
 pkginstall /usr/bin
+pkgcheck /usr/bin
+pkgremove /usr/bin
+pkgupdate /usr/bin
 ubports-qa_completion /etc/bash_completion.d
