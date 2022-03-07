@@ -1,0 +1,5 @@
+#!/bin/bash
+branch=$1
+pkgs=$(pkgcheck "${branch}")
+apt-get update
+apt-get install $pkgs

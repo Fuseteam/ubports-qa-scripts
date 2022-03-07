@@ -83,13 +83,12 @@ def apt_update():
         LOG.error("Failed to run 'apt update'. See the output above for details.")
 
 
-def apt_upgrade():
-    LOG.debug("Running 'apt full-upgrade'.")
+def apt_remove(repository):
+    LOG.debug("Running 'apt remove'.")
     try:
-        subprocess.run(["apt", "full-upgrade"], check=True)
-        subprocess.run(["apt", "autoremove"], check=True)
+        subprocess.run(["pkgremove", repository], check=True)
     except subprocess.CalledProcessError:
-        LOG.error("Failed to run 'apt full-upgrade'. See the output above for details.")
+        LOG.error("Failed to run 'apt remove'. See the output above for details.")
 
 def apt_install(repository_name):
     LOG.debug("upgrading package")
@@ -251,8 +250,7 @@ def remove_command(args):
     with WritableRootFS():
         remove_list(repository)
         remove_pref(repository)
-        apt_update()
-        apt_upgrade()
+        apt_remove(repository)
 
 
 def list_command(args):
