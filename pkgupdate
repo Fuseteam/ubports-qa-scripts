@@ -1,0 +1,10 @@
+#!/bin/bash
+readarray -t lists < <(ls /etc/apt/sources.list.d/*)
+for list in "${lists[@]}"
+do
+	list=$(basename "${list}")
+	if [[ "${list}" != "ubports.list" && "${list}" != "ubports-android9.list" ]]; then
+		list="${list/ubports-/}"
+		pkginstall "${list/.list/}"
+	 fi
+done

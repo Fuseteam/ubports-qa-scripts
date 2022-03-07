@@ -98,6 +98,12 @@ def apt_install(repository_name):
     except subprocess.CalledProcessError:
         LOG.error("Failed to install Package")
     
+def apt_upgrade_all():
+    LOG.debug("upgrading all qa package")
+    try:
+        subprocess.run(["pkgupdate"], check=True)
+    except subprocess.CalledProcessError:
+        LOG.error("Failed to install Package")
 
 def get_list_file(branch):
     list_file = "/etc/apt/sources.list.d/ubports-{}.list".format(branch)
@@ -258,7 +264,7 @@ def update_command(args):
     """Update all packages using apt"""
     with WritableRootFS():
         apt_update()
-        apt_upgrade()
+        apt_upgrade_all()
 
 
 parser = argparse.ArgumentParser(
