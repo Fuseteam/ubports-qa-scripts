@@ -12,6 +12,8 @@ relpkgs=()
 for pkg in "${pkgs[@]}"
 do
 	status=$(apt-cache policy $pkg|awk '/Installed/{print $2}')
-	[ "$status" != "(none)" ] && relpkgs=${relpkgs}" "${pkg}
+	if [[ -n "${status}" && "$status" != "(none)" ]]; then
+		relpkgs=${relpkgs}" "${pkg}
+	fi
 done
 echo $relpkgs
