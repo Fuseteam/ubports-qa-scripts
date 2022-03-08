@@ -84,25 +84,25 @@ def apt_update():
 
 
 def apt_remove(repository):
-    LOG.debug("Running 'apt remove'.")
+    LOG.debug("Downgrading packages")
     try:
         subprocess.run(["pkgremove", repository], check=True)
     except subprocess.CalledProcessError:
-        LOG.error("Failed to run 'apt remove'. See the output above for details.")
+        LOG.error("Failed to downgrade packages. See the output above for details.")
 
 def apt_install(repository_name):
-    LOG.debug("Upgrading package")
+    LOG.debug("Upgrading packages")
     try:
         subprocess.run(["pkginstall", repository_name], check=True)
     except subprocess.CalledProcessError:
-        LOG.error("Failed to install Package")
+        LOG.error("Failed to upgrade Packages. See the output above for details.")
     
 def apt_upgrade_all():
     LOG.debug("Upgrading all qa package")
     try:
         subprocess.run(["pkgupdate"], check=True)
     except subprocess.CalledProcessError:
-        LOG.error("Failed to install Package")
+        LOG.error("Failed to install Package. See the output above for details.")
 
 def get_list_file(branch):
     list_file = "/etc/apt/sources.list.d/ubports-{}.list".format(branch)
