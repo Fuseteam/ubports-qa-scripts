@@ -1,4 +1,4 @@
 #!/bin/bash
-branch=$1
-pkgs=$(pkgcheck $branch)
+branch="$1"
+pkgs=$(pkgcheck "$branch")
 apt-get install $pkgs
