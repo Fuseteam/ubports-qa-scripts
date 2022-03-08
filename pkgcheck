@@ -11,7 +11,6 @@ while read pkg
 do
 	status=$(apt-cache policy $pkg|awk '/Installed/{print $2}')
 	if [[ -n "${status}" && "$status" != "(none)" ]]; then
-		relpkgs=${relpkgs}" "${pkg}
+		echo -n "${pkg} "
 	fi
 done < <(awk '/Package/{print $2}' /var/lib/apt/lists/${repo}_dists_${branch//_/%5f}_main_binary-${arch}_Packages|uniq)
-echo "${relpkgs}"
