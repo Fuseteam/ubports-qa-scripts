@@ -91,14 +91,14 @@ def apt_remove(repository):
         LOG.error("Failed to run 'apt remove'. See the output above for details.")
 
 def apt_install(repository_name):
-    LOG.debug("upgrading package")
+    LOG.debug("Upgrading package")
     try:
         subprocess.run(["pkginstall", repository_name], check=True)
     except subprocess.CalledProcessError:
         LOG.error("Failed to install Package")
     
 def apt_upgrade_all():
-    LOG.debug("upgrading all qa package")
+    LOG.debug("Upgrading all qa package")
     try:
         subprocess.run(["pkgupdate"], check=True)
     except subprocess.CalledProcessError:
