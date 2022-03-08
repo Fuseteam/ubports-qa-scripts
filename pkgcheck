@@ -7,13 +7,11 @@ case "${branch}" in
 	*) repo="repo2.ubports.com";;
 esac
 
-readarray -t pkgs < <(awk '/Package/{print $2}' /var/lib/apt/lists/${repo}_dists_${branch//_/%5f}_main_binary-${arch}_Packages|uniq)
-relpkgs=()
-for pkg in "${pkgs[@]}"
+while read pkg
 do
 	status=$(apt-cache policy $pkg|awk '/Installed/{print $2}')
 	if [[ -n "${status}" && "$status" != "(none)" ]]; then
 		relpkgs=${relpkgs}" "${pkg}
 	fi
-done
-echo $relpkgs
+done < <(awk '/Package/{print $2}' /var/lib/apt/lists/${repo}_dists_${branch//_/%5f}_main_binary-${arch}_Packages|uniq)
+echo "${relpkgs}"
